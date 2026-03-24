@@ -82,8 +82,8 @@ for(i=0 ;i<n ;i++)
 
         p.x =rand()%10;
         p.y=rand()%10 ;
-        p.vx=rand()%3-1;
-        p.vy=rand()%3-1 ;
+        p.vx=(rand()%3-1);
+        p.vy=(rand()%3-1) ;
 
          particles.push_back(p) ;
        
@@ -174,25 +174,55 @@ cout<<"---------------------------------------------------\n";
 
 //  (2D simulation)
 
+for(int t=0 ; t<5;t++)
+
+{  
+    cout<<"TIME STEP : " <<t+1<<"\n" ;
 
     //grid making 
 
     for(i=0;i<10;i++)
     {
-        particle pos ;
+        
       for(int j=0;j<10;j++)
       {
 
-        if (i==pos.y && j==pos.x)
-        cout<<"P" ;
+        bool found = false ;
 
-        else 
-        cout<<".";
+        for( int k=0 ;k<n;k++)
+        {
+              if (i==particles[k].y && j==particles[k].x)
+                 { cout<<particles[k].particle_id<<" " ;
+                found = true ; break ;}
+                 }
+
+        if(!found) 
+        cout<<". ";
        
       }
 
        cout<<"\n" ;
     }
+cout<<"\n" ;
+
+
+
+
+//in each time step we will upadate the position of each particle based on its velocity 
+    for(int l =0 ;l<n ;l++)
+    {
+
+       particles[l].x    +=       particles[l].vx ;
+    particles[l].y         +=         particles[l].vy ;
+
+    if(particles[l].x < 0) particles[l].x = 0;
+    if(particles[l].x > 9) particles[l].x = 9;
+
+    if(particles[l].y < 0) particles[l].y = 0;
+    if(particles[l].y > 9) particles[l].y = 9;
+
+             }
+            }
 
 
     return 0 ;
